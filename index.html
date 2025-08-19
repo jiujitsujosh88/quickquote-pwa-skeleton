@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>QuickQuote PWA Skeleton</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=4" />
   <link rel="manifest" href="manifest.json" />
 </head>
 <body>
@@ -14,7 +14,6 @@
   </header>
 
   <main>
-    <!-- Tabs content -->
     <section id="home" class="tab active">
       <h2>Home</h2>
       <p>Welcome to the PWA skeleton. Use the tabs below to navigate.</p>
@@ -67,14 +66,7 @@
     <button data-tab="resources">Resources</button>
   </div>
 
-  <script src="app.js"></script>
-  <script>
-    // Register service worker (safe no-op on GitHub Pages if not present yet)
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./service-worker.js').catch(()=>{});
-      });
-    }
-  </script>
+  <!-- Load JS with cache-busting and defer so DOM is ready -->
+  <script src="app.js?v=4" defer></script>
 </body>
 </html>
