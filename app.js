@@ -1,7 +1,7 @@
-// app.js — Clean + Working (tabs = Quotes, Customers, History, Presets, Analytics, plus More)
+// app.js — working tabs + status
 
 document.addEventListener('DOMContentLoaded', () => {
-  const tabs = document.querySelectorAll('.tab'); // sections
+  const tabs = document.querySelectorAll('.tab');
   const tabBar = document.querySelector('.tab-bar');
   const tabButtons = tabBar ? tabBar.querySelectorAll('button[data-tab]') : [];
   const moreMenu = document.getElementById('moreMenu');
@@ -51,8 +51,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.addEventListener('online', updateStatus);
   window.addEventListener('offline', updateStatus);
+  document.addEventListener('visibilitychange', updateStatus);
 
-  // Init: default to Quotes
+  // Init
   updateStatus();
   switchTab('quotes');
 });
