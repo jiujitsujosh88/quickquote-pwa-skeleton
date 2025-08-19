@@ -1,35 +1,64 @@
-// app.js - Clean Skeleton Version
+// app.js — Clean + Working with current index.html/style.css
 
-// Simple router to switch tabs
-function showTab(tabId) {
-  // Hide all sections
-  document.querySelectorAll('.tab-content').forEach(section => {
-    section.style.display = 'none';
-  });
-
-  // Show the selected section
-  const activeTab = document.getElementById(tabId);
-  if (activeTab) {
-    activeTab.style.display = 'block';
-  }
-
-  // Update active button style
-  document.querySelectorAll('.tab-button').forEach(btn => {
-    btn.classList.remove('active');
-  });
-  const selectedButton = document.querySelector(`[data-tab="${tabId}"]`);
-  if (selectedButton) {
-    selectedButton.classList.add('active');
-  }
-}
-
-// Handle "More" dropdown for extra tabs
-function toggleMoreMenu() {
-  const menu = document.getElementById('more-menu');
-  menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
-}
-
-// Auto-init first tab
 document.addEventListener('DOMContentLoaded', () => {
-  showTab('quotes');
+  const tabs = document.querySelectorAll('.tab'); // sections
+  const tabBar = document.querySelector('.tab-bar');
+  const tabButtons = tabBar ? tabBar.querySelectorAll('button[data-tab]') : [];
+  const moreMenu = document.getElementById('moreMenu');
+  const moreItems = moreMenu ? moreMenu.querySelectorAll('button[data-tab]') : [];
+  const statusEl = document.getElementById('status');
+
+  // Helpers
+  const hideAll = () => tabs.forEach(s => s.classList.remove('active'));
+  const deactivateAll = () => tabButtons.forEach(b => b.classList.remove('active'));
+  const closeMore = () => moreMenu && moreMenu.classList.remove('open');
+
+  function switchTab(tabId, sourceBtn = null) {
+    if (tabId === 'more') {
+      if (!moreMenu) return;
+      const open = moreMenu.classList.contains('open');
+      moreMenu.classList.toggle('open', !open);
+      if (sourceBtn) sourceBtn.classList.add('active');
+      return;
+    }
+
+    closeMore();
+    hideAll();
+    deactivateAll();
+
+    const target = document.getElementById(tabId);
+    if (target) target.classList.add('active');
+
+    // highlight matching bottom button if it exists
+    const matchBtn = Array.from(tabButtons).find(b => b.dataset.tab === tabId);
+    if (matchBtn) matchBtn.classList.add('active');
+  }
+
+  function updateStatus() {
+    if (!statusEl) return;
+    const online = navigator.onLine;
+    statusEl.textContent = online ? 'Online' : 'Offline';
+    statusEl.style.color = online ? '#aef7ae' : '#ff7b7b';
+  }
+
+  // Wire events
+  tabButtons.forEach(btn => {
+    btn.addEventListener('click', () => switchTab(btn.dataset.tab, btn));
+  });
+  moreItems.forEach(btn => {
+    btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+  });
+  document.addEventListener('click', (e) => {
+    if (!moreMenu) return;
+    const clickedMoreBtn = e.target.closest('.tab-bar button[data-tab="more"]');
+    const insideMenu = e.target.closest('#moreMenu');
+    if (!clickedMoreBtn && !insideMenu) closeMore();
+  });
+
+  window.addEventListener('online', updateStatus);
+  window.addEventListener('offline', updateStatus);
+
+  // Init
+  updateStatus();
+  switchTab('home');
 });
