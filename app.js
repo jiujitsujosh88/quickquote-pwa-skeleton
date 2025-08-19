@@ -1,7 +1,9 @@
-// app.js — Clean + Working with current index.html/style.css
+// app.js — Clean + Working + Cache-bust friendly + Logs
 
 document.addEventListener('DOMContentLoaded', () => {
-  const tabs = document.querySelectorAll('.tab'); // sections
+  console.log('[QQ] DOM loaded');
+
+  const tabs = document.querySelectorAll('.tab');
   const tabBar = document.querySelector('.tab-bar');
   const tabButtons = tabBar ? tabBar.querySelectorAll('button[data-tab]') : [];
   const moreMenu = document.getElementById('moreMenu');
@@ -11,9 +13,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // Helpers
   const hideAll = () => tabs.forEach(s => s.classList.remove('active'));
   const deactivateAll = () => tabButtons.forEach(b => b.classList.remove('active'));
-  const closeMore = () => moreMenu && moreMenu.classList.remove('open');
+  const closeMore = () => { if (moreMenu) moreMenu.classList.remove('open'); };
 
   function switchTab(tabId, sourceBtn = null) {
+    console.log('[QQ] switchTab ->', tabId);
+
     if (tabId === 'more') {
       if (!moreMenu) return;
       const open = moreMenu.classList.contains('open');
@@ -29,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const target = document.getElementById(tabId);
     if (target) target.classList.add('active');
 
-    // highlight matching bottom button if it exists
     const matchBtn = Array.from(tabButtons).find(b => b.dataset.tab === tabId);
     if (matchBtn) matchBtn.classList.add('active');
   }
@@ -61,4 +64,5 @@ document.addEventListener('DOMContentLoaded', () => {
   // Init
   updateStatus();
   switchTab('home');
+  console.log('[QQ] init complete');
 });
