@@ -1,13 +1,21 @@
 {
-  "name": "QuickQuote PWA",
-  "short_name": "QuickQuote",
+  "name": "QuickQuote",
+  "short_name": "QQ",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#0a6fd6",
-  "theme_color": "#0a6fd6",
-  "description": "Mobile-first quoting and analytics for techs, service advisors, and shop owners.",
+  "background_color": "#ffffff",
+  "theme_color": "#1976d2",
+  "orientation": "portrait-primary",
   "icons": [
-    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
-    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
   ]
 }
