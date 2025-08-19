@@ -1,91 +1,140 @@
 /* ============================
-   Global Styles
+   Mobile App Shell Layout
    ============================ */
+:root{
+  --header-h: 56px;
+  --tab-h: 64px;
+}
+
+/* Use small viewport units for mobile toolbars; include safe areas */
+html, body {
+  height: 100%;
+}
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
-  color: #333;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-header {
-  background-color: #0077cc;
-  color: white;
-  text-align: center;
-  padding: 12px;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-main {
-  flex: 1;
-  padding: 16px;
-  overflow-y: auto;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background-color: #f7f8fa;
+  color: #222;
+  min-height: 100svh;
+  padding-top: calc(var(--header-h) + env(safe-area-inset-top, 0px));
+  padding-bottom: calc(var(--tab-h) + env(safe-area-inset-bottom, 0px));
+  box-sizing: border-box;
 }
 
 /* ============================
-   Tab Bar
+   Header (fixed)
+   ============================ */
+header {
+  position: fixed;
+  top: env(safe-area-inset-top, 0px);
+  left: 0;
+  right: 0;
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0a6fd6;
+  color: #fff;
+  z-index: 100;
+  box-shadow: 0 1px 0 rgba(0,0,0,.08);
+}
+
+header h1 {
+  font-size: 16px;
+  margin: 0;
+  font-weight: 600;
+}
+
+#status {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+/* ============================
+   Main content area
+   ============================ */
+main {
+  height: calc(100svh - var(--header-h) - var(--tab-h) - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+  overflow: auto;
+  padding: 16px;
+}
+
+/* Tabs: only one visible */
+.tab { display: none; }
+.tab.active { display: block; }
+
+/* ============================
+   Tab Bar (fixed bottom)
    ============================ */
 .tab-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: env(safe-area-inset-bottom, 0px);
+  height: var(--tab-h);
+  background: #fff;
   display: flex;
-  justify-content: space-around;
   align-items: center;
-  background-color: #fff;
-  border-top: 1px solid #ddd;
-  height: 60px;
+  justify-content: space-around;
+  border-top: 1px solid #e6e6e6;
+  z-index: 90;
 }
 
 .tab-bar button {
-  flex: 1;
+  flex: 1 1 0;
   background: none;
-  border: none;
-  font-size: 14px;
-  padding: 8px;
-  cursor: pointer;
+  border: 0;
+  font-size: 13px;
+  padding: 8px 6px;
   color: #555;
-  transition: color 0.2s;
+  cursor: pointer;
 }
 
 .tab-bar button.active {
-  color: #0077cc;
-  font-weight: bold;
+  color: #0a6fd6;
+  font-weight: 600;
 }
 
 /* ============================
-   More Menu (dropdown style)
+   More Menu (sheet above tab bar)
    ============================ */
 #moreMenu {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: calc(var(--tab-h) + env(safe-area-inset-bottom, 0px));
+  background: #fff;
+  border-top: 1px solid #e6e6e6;
+  box-shadow: 0 -6px 18px rgba(0,0,0,.06);
   display: none;
-  background-color: #fff;
-  border-top: 1px solid #ddd;
-  padding: 12px;
+  z-index: 95;
+  padding: 8px;
 }
 
+#moreMenu.open { display: block; }
+
 #moreMenu button {
-  display: block;
   width: 100%;
-  background: none;
-  border: none;
-  padding: 10px;
   text-align: left;
+  background: none;
+  border: 0;
+  padding: 12px 10px;
   font-size: 14px;
-  color: #333;
-  cursor: pointer;
+  border-radius: 8px;
+  color: #222;
 }
 
 #moreMenu button:hover {
-  background-color: #f0f0f0;
+  background: #f2f4f7;
 }
 
 /* ============================
-   Online/Offline Indicator
+   Utility
    ============================ */
-#status {
-  font-size: 12px;
-  text-align: right;
-  padding: 4px 8px;
-  color: #666;
-}
+*,
+*::before,
+*::after { box-sizing: border-box; }
