@@ -1,23 +1,18 @@
-// app.js — Clean + Working + Cache-bust friendly + Logs
+// app.js — Clean + Working (tabs = Quotes, Customers, History, Presets, Analytics, plus More)
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('[QQ] DOM loaded');
-
-  const tabs = document.querySelectorAll('.tab');
+  const tabs = document.querySelectorAll('.tab'); // sections
   const tabBar = document.querySelector('.tab-bar');
   const tabButtons = tabBar ? tabBar.querySelectorAll('button[data-tab]') : [];
   const moreMenu = document.getElementById('moreMenu');
   const moreItems = moreMenu ? moreMenu.querySelectorAll('button[data-tab]') : [];
   const statusEl = document.getElementById('status');
 
-  // Helpers
   const hideAll = () => tabs.forEach(s => s.classList.remove('active'));
   const deactivateAll = () => tabButtons.forEach(b => b.classList.remove('active'));
-  const closeMore = () => { if (moreMenu) moreMenu.classList.remove('open'); };
+  const closeMore = () => moreMenu && moreMenu.classList.remove('open');
 
   function switchTab(tabId, sourceBtn = null) {
-    console.log('[QQ] switchTab ->', tabId);
-
     if (tabId === 'more') {
       if (!moreMenu) return;
       const open = moreMenu.classList.contains('open');
@@ -45,12 +40,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Wire events
-  tabButtons.forEach(btn => {
-    btn.addEventListener('click', () => switchTab(btn.dataset.tab, btn));
-  });
-  moreItems.forEach(btn => {
-    btn.addEventListener('click', () => switchTab(btn.dataset.tab));
-  });
+  tabButtons.forEach(btn => btn.addEventListener('click', () => switchTab(btn.dataset.tab, btn)));
+  moreItems.forEach(btn => btn.addEventListener('click', () => switchTab(btn.dataset.tab)));
   document.addEventListener('click', (e) => {
     if (!moreMenu) return;
     const clickedMoreBtn = e.target.closest('.tab-bar button[data-tab="more"]');
@@ -61,8 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('online', updateStatus);
   window.addEventListener('offline', updateStatus);
 
-  // Init
+  // Init: default to Quotes
   updateStatus();
-  switchTab('home');
-  console.log('[QQ] init complete');
+  switchTab('quotes');
 });
