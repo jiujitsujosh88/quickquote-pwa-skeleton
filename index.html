@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>QuickQuote PWA Skeleton</title>
-  <link rel="stylesheet" href="style.css?v=4" />
+  <link rel="stylesheet" href="style.css?v=5" />
   <link rel="manifest" href="manifest.json" />
 </head>
 <body>
@@ -14,12 +14,8 @@
   </header>
 
   <main>
-    <section id="home" class="tab active">
-      <h2>Home</h2>
-      <p>Welcome to the PWA skeleton. Use the tabs below to navigate.</p>
-    </section>
-
-    <section id="quotes" class="tab">
+    <!-- PRIMARY TABS -->
+    <section id="quotes" class="tab active">
       <h2>Quotes</h2>
       <p>Quote screen placeholder.</p>
     </section>
@@ -34,39 +30,50 @@
       <p>History screen placeholder.</p>
     </section>
 
+    <section id="presets" class="tab">
+      <h2>Presets</h2>
+      <p>Preset library placeholder.</p>
+    </section>
+
+    <section id="analytics" class="tab">
+      <h2>Analytics</h2>
+      <p>Analytics dashboard placeholder.</p>
+    </section>
+
+    <!-- MORE TABS (via sheet) -->
     <section id="settings" class="tab">
       <h2>Settings</h2>
-      <p>Settings placeholder (roles, preferences, etc.).</p>
+      <p>Roles, preferences, and global options.</p>
     </section>
 
     <section id="business" class="tab">
       <h2>Business Info</h2>
-      <p>Business info placeholder (name, logo, contact, branding).</p>
+      <p>Business name, logo, contact, branding, financial defaults.</p>
     </section>
 
     <section id="resources" class="tab">
       <h2>Resources</h2>
-      <p>Resources placeholder (employees, sublets, suppliers).</p>
+      <p>Employees, sublets, suppliers.</p>
     </section>
   </main>
 
-  <!-- Bottom tab bar -->
+  <!-- Bottom tab bar (FIVE primary tabs + More) -->
   <nav class="tab-bar">
-    <button data-tab="home" class="active">Home</button>
-    <button data-tab="quotes">Quotes</button>
+    <button data-tab="quotes" class="active">Quotes</button>
     <button data-tab="customers">Customers</button>
     <button data-tab="history">History</button>
+    <button data-tab="presets">Presets</button>
+    <button data-tab="analytics">Analytics</button>
     <button data-tab="more">More ▾</button>
   </nav>
 
-  <!-- More dropdown -->
+  <!-- More dropdown (Settings, Business Info, Resources) -->
   <div id="moreMenu">
     <button data-tab="settings">Settings</button>
     <button data-tab="business">Business Info</button>
     <button data-tab="resources">Resources</button>
   </div>
 
-  <!-- Load JS with cache-busting and defer so DOM is ready -->
-  <script src="app.js?v=4" defer></script>
+  <script src="app.js?v=5" defer></script>
 </body>
 </html>
