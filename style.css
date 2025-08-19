@@ -32,7 +32,7 @@ header h1 { font-size: 16px; margin: 0; font-weight: 600; }
   transform: translateY(-50%); font-size: 12px; opacity: .9;
 }
 
-/* Main content area between header and tab bar */
+/* Main content area */
 main {
   height: calc(100svh - var(--header-h) - var(--tab-h) - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
   overflow: auto;
@@ -62,7 +62,7 @@ main {
 }
 .tab-bar button.active { color: #0a6fd6; font-weight: 600; }
 
-/* More Menu sheet (above tab bar) */
+/* More Menu sheet */
 #moreMenu {
   position: fixed;
   left: 0; right: 0;
