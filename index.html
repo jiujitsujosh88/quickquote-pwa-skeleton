@@ -1,49 +1,115 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <title>PWA Skeleton</title>
+  <meta name="theme-color" content="#0d9488" />
 
-  <!-- App theme colors -->
-  <meta name="theme-color" content="#1976d2" />
-
-  <!-- Icons -->
-  <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png" />
-  <link rel="icon" type="image/png" sizes="48x48" href="icons/icon-48.png" />
-  <link rel="icon" type="image/png" sizes="96x96" href="icons/icon-96.png" />
-  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png" />
-  <link rel="apple-touch-icon" href="icons/icon-192.png" />
-
-  <!-- Manifest -->
-  <link rel="manifest" href="manifest.json" />
+  <!-- PWA manifest + icons (all relative paths for GitHub Pages) -->
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./icons/icon-192.png" sizes="192x192">
+  <link rel="apple-touch-icon" href="./icons/icon-192.png">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="./styles.css" />
+
+  <!-- Prevent stale SW caches after updates -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+  <meta http-equiv="Pragma" content="no-cache"/>
+  <meta http-equiv="Expires" content="0"/>
 </head>
 <body>
-  <div id="app">
-    <header>
-      <h1>PWA Skeleton</h1>
-      <span id="status">Checking...</span>
-    </header>
+  <header class="app-header">
+    <h1>PWA Skeleton</h1>
+    <div id="netStatus" aria-live="polite">Checking…</div>
+  </header>
 
-    <main id="content">
-      <p>Welcome! Select a tab below.</p>
-    </main>
+  <main class="container">
+    <p>Welcome! Select a tab below.</p>
 
-    <!-- Tab Bar -->
-    <nav class="tab-bar">
-      <button data-tab="quotes">Quotes</button>
-      <button data-tab="history">History</button>
-      <button data-tab="customers">Customers</button>
-      <button data-tab="presets">Presets</button>
-      <button data-tab="analytics">Analytics</button>
-      <button data-tab="more">More</button>
+    <!-- Tab bar -->
+    <nav class="tabs" aria-label="Primary">
+      <button data-tab="quotes" class="tab-btn">Quotes</button>
+      <button data-tab="history" class="tab-btn">History</button>
+      <button data-tab="customers" class="tab-btn">Customers</button>
+      <button data-tab="presets" class="tab-btn">Presets</button>
+      <button data-tab="analytics" class="tab-btn">Analytics</button>
+      <button id="moreBtn" class="tab-btn">More</button>
     </nav>
-  </div>
 
-  <!-- Scripts -->
-  <script src="app.js"></script>
+    <!-- Panels -->
+    <section id="quotes" class="tab" hidden>
+      <h2>Quotes</h2>
+      <p>Quotes panel placeholder.</p>
+    </section>
+
+    <section id="history" class="tab" hidden>
+      <h2>History</h2>
+      <p>History panel placeholder.</p>
+    </section>
+
+    <section id="customers" class="tab" hidden>
+      <h2>Customers</h2>
+      <p>Customers panel placeholder.</p>
+    </section>
+
+    <section id="presets" class="tab" hidden>
+      <h2>Presets</h2>
+      <p>Presets panel placeholder.</p>
+    </section>
+
+    <section id="analytics" class="tab" hidden>
+      <h2>Analytics</h2>
+      <p>Analytics panel placeholder.</p>
+    </section>
+
+    <!-- “More” drawer content -->
+    <section id="moreDrawer" class="drawer" hidden>
+      <button data-tab="business" class="drawer-link">Business Info</button>
+      <button data-tab="resources" class="drawer-link">Resources</button>
+      <button data-tab="settings" class="drawer-link">Settings</button>
+    </section>
+
+    <section id="business" class="tab" hidden>
+      <h2>Business Info</h2>
+      <p>Business info placeholder.</p>
+    </section>
+
+    <section id="resources" class="tab" hidden>
+      <h2>Resources</h2>
+      <p>Resources placeholder.</p>
+    </section>
+
+    <section id="settings" class="tab" hidden>
+      <h2>Settings</h2>
+      <p>Settings placeholder.</p>
+    </section>
+  </main>
+
+  <noscript>
+    <strong>This app requires JavaScript.</strong>
+  </noscript>
+
+  <!-- App script (RELATIVE path is critical on GitHub Pages) -->
+  <script defer src="./app.js"></script>
+
+  <!-- Tiny safety net: if JS fails to load, show a hint -->
+  <script>
+    // If app.js didn’t run to set up the UI within 2s, hint about caching/paths
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const anyTab = document.querySelector('.tab-btn');
+        if (!anyTab || !anyTab.onclick) {
+          const tip = document.createElement('p');
+          tip.style.color = '#b91c1c';
+          tip.style.marginTop = '1rem';
+          tip.textContent = 'If tabs are not responding, clear site data or force refresh. Ensure ./app.js loads (no 404).';
+          document.querySelector('.container')?.appendChild(tip);
+        }
+      }, 2000);
+    });
+  </script>
 </body>
 </html>
