@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuickQuote PWA Skeleton</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>QuickQuote PWA Skeleton</h1>
+    <p id="status">Checking connection...</p>
+  </header>
+
+  <main>
+    <nav class="tab-bar">
+      <button onclick="openTab('home')">Home</button>
+      <button onclick="openTab('quotes')">Quotes</button>
+      <button onclick="openTab('customers')">Customers</button>
+      <button onclick="openTab('history')">History</button>
+      <button onclick="openTab('more')">More</button>
+    </nav>
+
+    <section id="home" class="tab active">
+      <h2>Home</h2>
+      <p>Welcome to the skeleton app.</p>
+    </section>
+
+    <section id="quotes" class="tab">
+      <h2>Quotes</h2>
+      <p>Quote screen placeholder.</p>
+    </section>
+
+    <section id="customers" class="tab">
+      <h2>Customers</h2>
+      <p>Customer screen placeholder.</p>
+    </section>
+
+    <section id="history" class="tab">
+      <h2>History</h2>
+      <p>History screen placeholder.</p>
+    </section>
+
+    <section id="more" class="tab">
+      <h2>More</h2>
+      <p>Settings, Business Info, Resources will live here.</p>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
